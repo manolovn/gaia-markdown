@@ -1,0 +1,6 @@
+# Code generation options for kconfig_compiler
+File=gaiaSettings.kcfg
+ClassName=gaiaSettings
+Singleton=true
+# will create the necessary code for setting those variables
+Mutators=color_background,color_foreground
