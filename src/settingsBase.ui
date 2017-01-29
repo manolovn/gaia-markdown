@@ -17,7 +17,7 @@
       <string>Background color:</string>
      </property>
      <property name="wordWrap">
-      <bool>false</bool>
+      <bool>false</bool>	
      </property>
     </widget>
    </item>
