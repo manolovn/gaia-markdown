@@ -1,19 +1,18 @@
-How To Build This Template
--=-=-=-=-=-=-=-=-=-=-=-=-=
+# How to build
 
---- On Unix:
+## How to build
 
-cd <project_name_path>
+```
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$KDEDIRS -DCMAKE_BUILD_TYPE=Debug ..
+cmake -DCMAKE_INSTALL_PREFIX=$KDEDIRS -DCMAKE_BUILD_TYPE=Release ..
 make
-make install  or  su -c 'make install'  or  sudo make install
+sudo make install
+```
 
-where $KDEDIRS points to your KDE installation prefix.
+## Thanks
+Thanks to discount project
 
-Note: you can use another build path. Then cd in your build dir and:
-export KDE_SRC=path_to_your_src
-cmake $KDE_SRC -DCMAKE_INSTALL_PREFIX=$KDEDIRS -DCMAKE_BUILD_TYPE=Debug
+[http://www.pell.portland.or.us/~orc/Code/discount](http://www.pell.portland.or.us/~orc/Code/discount)
 
-https://gist.github.com/Orc/97b5711dd8c8a3b371928db756eba6e5
+[https://gist.github.com/Orc/97b5711dd8c8a3b371928db756eba6e5](https://gist.github.com/Orc/97b5711dd8c8a3b371928db756eba6e5)
