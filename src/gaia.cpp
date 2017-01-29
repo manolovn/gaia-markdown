@@ -65,11 +65,8 @@ void gaia::renderMarkdown() {
   char* text;
   int len = mkd_document(m, &text);
   
-  qDebug() << text;
-  
-  QString htmlo(text);
-  qDebug() << htmlo;
-  m_textOutput->setHtml(htmlo);
+  QString html(text);
+  m_textOutput->setHtml(html);
   
   mkd_cleanup(m);
 }
