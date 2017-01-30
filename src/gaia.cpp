@@ -34,11 +34,6 @@ gaia::gaia() : KXmlGuiWindow() {
     m_textInput = m_gaiaView->findChild<QTextEdit*> ( "textEdit_input" );
     connect ( m_textInput, SIGNAL ( textChanged() ), this, SLOT ( renderMarkdown() ) );
 
-    m_switchAction = actionCollection()->addAction ( QStringLiteral ( "switch_action" ), this, SLOT ( slotSwitchColors() ) );
-    m_switchAction->setText ( i18n ( "Switch Colors" ) );
-    m_switchAction->setIcon ( QIcon::fromTheme ( QStringLiteral ( "fill-color" ) ) );
-    connect ( m_switchAction, SIGNAL ( triggered ( bool ) ), m_gaiaView, SLOT ( slotSwitchColors() ) );
-
     m_exportHtmlAction = actionCollection()->addAction ( QStringLiteral ( "file_export_html" ), this, SLOT ( slotSwitchColors() ) );
     m_exportHtmlAction->setText ( i18n ( "HTML" ) );
 

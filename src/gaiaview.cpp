@@ -31,15 +31,6 @@ gaiaView::~gaiaView()
 {
 }
 
-void gaiaView::slotSwitchColors()
-{
-    QColor color = gaiaSettings::color_background();
-    gaiaSettings::setColor_background(gaiaSettings::color_foreground());
-    gaiaSettings::setColor_foreground(color);
-
-    slotSettingsChanged();
-}
-
 void gaiaView::slotSettingsChanged()
 {
     qCDebug(GAIA) << "gaiaView::slotSettingsChanged()";

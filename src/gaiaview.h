@@ -44,7 +44,6 @@ public:
 
 private slots:
     void slotSettingsChanged();
-    void slotSwitchColors();
 
 signals:
     void signalChangeStatusbar(const QString& text);
