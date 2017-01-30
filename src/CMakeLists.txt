@@ -15,6 +15,7 @@ target_link_libraries(gaia
     KF5::I18n
     KF5::XmlGui
     KF5::ConfigWidgets
+    KF5::KIOCore
     markdown
 )
 

@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Q_DECLARE_LOGGING_CATEGORY(GAIA)
 
+class KJob;
+
 /**
  * This class serves as the main window for gaia.  It handles the
  * menus, toolbars and status bars.
@@ -56,6 +58,7 @@ class gaia : public KXmlGuiWindow
     void fileOpen();
     void fileOpenRecent();
     void saveFile();
+    void downloadFinished(KJob* job);
     
     void renderMarkdown();
 
@@ -67,6 +70,8 @@ class gaia : public KXmlGuiWindow
     Ui::settingsEditor settingsEditor;
     
     Ui::gaiaViewBase gaiaViewBase;
+    
+    QString fileName;
     
     QTextEdit *m_textInput;
     QTextEdit *m_textOutput;

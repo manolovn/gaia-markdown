@@ -23,7 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileDialog>
 
 #include <KActionCollection>
+#include <KMessageBox>
 #include <KConfigDialog>
+#include <KIO/Job>
 
 gaia::gaia() : KXmlGuiWindow() {
     m_gaiaView = new gaiaView ( this );
@@ -81,16 +83,30 @@ void gaia::fileNew() {
 }
 
 void gaia::fileOpen() {
-    QUrl fileNameFromDialog = QFileDialog::getOpenFileUrl ( this, i18n ( "Open File" ) );
+    QString filter = "Markdown files (*.md)";
+    QUrl fileNameFromDialog = QFileDialog::getOpenFileUrl ( this, i18n ( "Open File" ), QUrl("/home"), filter );
 
     if ( !fileNameFromDialog.isEmpty() ) {
-        //KIO::Job* job = KIO::storedGet(fileNameFromDialog);
-        //fileName = fileNameFromDialog.toLocalFile();
+        KIO::Job* job = KIO::storedGet(fileNameFromDialog);
+        fileName = fileNameFromDialog.toLocalFile();
 
-        //connect(job, SIGNAL(result(KJob*)), this, SLOT(downloadFinished(KJob*)));
+        connect(job, SIGNAL(result(KJob*)), this, SLOT(downloadFinished(KJob*)));
 
-        //job->exec();
+        job->exec();
     }
+}
+
+void gaia::downloadFinished(KJob* job)
+{
+    if (job->error())
+    {
+        KMessageBox::error(this, job->errorString());
+        fileName.clear();
+        return;
+    }
+    
+    KIO::StoredTransferJob* storedJob = (KIO::StoredTransferJob*)job;
+    m_textInput->setPlainText(QTextStream(storedJob->data(), QIODevice::ReadOnly).readAll());
 }
 
 void gaia::fileOpenRecent() {
