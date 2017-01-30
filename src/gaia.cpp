@@ -38,15 +38,15 @@ gaia::gaia() : KXmlGuiWindow() {
     m_switchAction->setText ( i18n ( "Switch Colors" ) );
     m_switchAction->setIcon ( QIcon::fromTheme ( QStringLiteral ( "fill-color" ) ) );
     connect ( m_switchAction, SIGNAL ( triggered ( bool ) ), m_gaiaView, SLOT ( slotSwitchColors() ) );
-    
+
     m_exportHtmlAction = actionCollection()->addAction ( QStringLiteral ( "file_export_html" ), this, SLOT ( slotSwitchColors() ) );
     m_exportHtmlAction->setText ( i18n ( "HTML" ) );
-    
+
     m_exportPdfAction = actionCollection()->addAction ( QStringLiteral ( "file_export_pdf" ), this, SLOT ( slotSwitchColors() ) );
     m_exportPdfAction->setText ( i18n ( "PDF" ) );
-    
-    actionCollection()->setDefaultShortcut(m_exportHtmlAction, Qt::CTRL + Qt::Key_H);
-    actionCollection()->setDefaultShortcut(m_exportPdfAction, Qt::CTRL + Qt::Key_P);
+
+    actionCollection()->setDefaultShortcut ( m_exportHtmlAction, Qt::CTRL + Qt::Key_H );
+    actionCollection()->setDefaultShortcut ( m_exportPdfAction, Qt::CTRL + Qt::Key_P );
 
     KStandardAction::openNew ( this, SLOT ( fileNew() ), actionCollection() );
     KStandardAction::open ( this, SLOT ( fileOpen() ), actionCollection() );
@@ -88,34 +88,32 @@ void gaia::renderMarkdown() {
 
 void gaia::fileNew() {
     qCDebug ( GAIA ) << "gaia::fileNew()";
-    ( new gaia )->show();
+    m_textInput->clear();
 }
 
 void gaia::fileOpen() {
     QString filter = "Markdown files (*.md)";
-    QUrl fileNameFromDialog = QFileDialog::getOpenFileUrl ( this, i18n ( "Open File" ), QUrl("/home"), filter );
+    QUrl fileNameFromDialog = QFileDialog::getOpenFileUrl ( this, i18n ( "Open File" ), QUrl ( "/home" ), filter );
 
     if ( !fileNameFromDialog.isEmpty() ) {
-        KIO::Job* job = KIO::storedGet(fileNameFromDialog);
+        KIO::Job* job = KIO::storedGet ( fileNameFromDialog );
         fileName = fileNameFromDialog.toLocalFile();
 
-        connect(job, SIGNAL(result(KJob*)), this, SLOT(downloadFinished(KJob*)));
+        connect ( job, SIGNAL ( result ( KJob* ) ), this, SLOT ( downloadFinished ( KJob* ) ) );
 
         job->exec();
     }
 }
 
-void gaia::downloadFinished(KJob* job)
-{
-    if (job->error())
-    {
-        KMessageBox::error(this, job->errorString());
+void gaia::downloadFinished ( KJob* job ) {
+    if ( job->error() ) {
+        KMessageBox::error ( this, job->errorString() );
         fileName.clear();
         return;
     }
-    
-    KIO::StoredTransferJob* storedJob = (KIO::StoredTransferJob*)job;
-    m_textInput->setPlainText(QTextStream(storedJob->data(), QIODevice::ReadOnly).readAll());
+
+    KIO::StoredTransferJob* storedJob = ( KIO::StoredTransferJob* ) job;
+    m_textInput->setPlainText ( QTextStream ( storedJob->data(), QIODevice::ReadOnly ).readAll() );
 }
 
 void gaia::fileOpenRecent() {
@@ -132,22 +130,22 @@ void gaia::settingsConfigure() {
         return;
     }
     KConfigDialog *dialog = new KConfigDialog ( this, QStringLiteral ( "settings" ), gaiaSettings::self() );
-    
+
     QWidget *generalSettingsDialog = new QWidget;
     settingsBase.setupUi ( generalSettingsDialog );
     dialog->addPage ( generalSettingsDialog, i18n ( "General" ), QStringLiteral ( "package_setting" ) );
-    
+
     QWidget *cssSettingsDialog = new QWidget;
     settingsCSS.setupUi ( cssSettingsDialog );
-    settingsCSS.kcfg_css_theme->addItem("Github");
-    settingsCSS.kcfg_css_theme->addItem("Bootstrap");
-    settingsCSS.kcfg_css_theme->addItem("Solarized Dark");
+    settingsCSS.kcfg_css_theme->addItem ( "Github" );
+    settingsCSS.kcfg_css_theme->addItem ( "Bootstrap" );
+    settingsCSS.kcfg_css_theme->addItem ( "Solarized Dark" );
     dialog->addPage ( cssSettingsDialog, i18n ( "CSS" ), QStringLiteral ( "package_setting" ) );
-    
+
     QWidget *editorSettingsDialog = new QWidget;
     settingsEditor.setupUi ( editorSettingsDialog );
     dialog->addPage ( editorSettingsDialog, i18n ( "Editor" ), QStringLiteral ( "package_setting" ) );
-    
+
     connect ( dialog, SIGNAL ( settingsChanged ( QString ) ), m_gaiaView, SLOT ( slotSettingsChanged() ) );
     dialog->setAttribute ( Qt::WA_DeleteOnClose );
     dialog->show();
