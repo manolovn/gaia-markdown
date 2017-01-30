@@ -17,5 +17,9 @@
 	    <label>age of the project</label>
 	    <default>2</default>
     </entry>
+    <entry name="css_theme" type="String">
+	    <label>CSS theme</label>
+	    <default>themes/default.desktop</default>
+    </entry>
   </group>
 </kcfg>

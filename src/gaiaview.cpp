@@ -48,6 +48,8 @@ void gaiaView::slotSettingsChanged()
     palette.setColor(QPalette::WindowText, gaiaSettings::color_foreground());
     //m_ui.templateLabel->setPalette(palette);
 
+    qCDebug(GAIA) << "current css theme " << gaiaSettings::css_theme();
+    
     // i18n : internationalization
     //m_ui.templateLabel->setText(i18n("This project is %1 days old", gaiaSettings::val_time()));
     emit signalChangeStatusbar(i18n("Settings changed"));

@@ -5,7 +5,7 @@ set(gaia_SRCS
 )
 
 kconfig_add_kcfg_files(gaia_SRCS gaiaSettings.kcfgc)
-ki18n_wrap_ui(gaia_SRCS gaiaViewBase.ui settingsBase.ui)
+ki18n_wrap_ui(gaia_SRCS gaiaViewBase.ui settingsBase.ui settingsCSS.ui settingsEditor.ui)
 
 add_executable(gaia ${gaia_SRCS})
 

@@ -101,25 +101,29 @@ void gaia::saveFile() {
 
 }
 
-
 void gaia::settingsConfigure() {
     qCDebug ( GAIA ) << "gaia::settingsConfigure()";
-    // The preference dialog is derived from prefs_base.ui
-    //
-    // compare the names of the widgets in the .ui file
-    // to the names of the variables in the .kcfg file
-    //avoid to have 2 dialogs shown
     if ( KConfigDialog::showDialog ( QStringLiteral ( "settings" ) ) ) {
         return;
     }
     KConfigDialog *dialog = new KConfigDialog ( this, QStringLiteral ( "settings" ), gaiaSettings::self() );
+    
     QWidget *generalSettingsDialog = new QWidget;
     settingsBase.setupUi ( generalSettingsDialog );
     dialog->addPage ( generalSettingsDialog, i18n ( "General" ), QStringLiteral ( "package_setting" ) );
-    dialog->addPage ( generalSettingsDialog, i18n ( "General" ), QStringLiteral ( "package_setting" ) );
-    dialog->addPage ( generalSettingsDialog, i18n ( "General" ), QStringLiteral ( "package_setting" ) );
+    
+    QWidget *cssSettingsDialog = new QWidget;
+    settingsCSS.setupUi ( cssSettingsDialog );
+    settingsCSS.kcfg_css_theme->addItem("Github");
+    settingsCSS.kcfg_css_theme->addItem("Bootstrap");
+    settingsCSS.kcfg_css_theme->addItem("Solarized Dark");
+    dialog->addPage ( cssSettingsDialog, i18n ( "CSS" ), QStringLiteral ( "package_setting" ) );
+    
+    QWidget *editorSettingsDialog = new QWidget;
+    settingsEditor.setupUi ( editorSettingsDialog );
+    dialog->addPage ( editorSettingsDialog, i18n ( "Editor" ), QStringLiteral ( "package_setting" ) );
+    
     connect ( dialog, SIGNAL ( settingsChanged ( QString ) ), m_gaiaView, SLOT ( slotSettingsChanged() ) );
     dialog->setAttribute ( Qt::WA_DeleteOnClose );
     dialog->show();
 }
-

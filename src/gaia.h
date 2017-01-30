@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "markdown.h"
 #include "ui_gaiaViewBase.h"
 #include "ui_settingsBase.h"
+#include "ui_settingsCSS.h"
+#include "ui_settingsEditor.h"
 #include "gaiaSettings.h"
 #include "gaiaview.h"
 
@@ -61,6 +63,9 @@ class gaia : public KXmlGuiWindow
 
   private:
     Ui::settingsBase settingsBase;
+    Ui::settingsCSS settingsCSS;
+    Ui::settingsEditor settingsEditor;
+    
     Ui::gaiaViewBase gaiaViewBase;
     
     QTextEdit *m_textInput;
