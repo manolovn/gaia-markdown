@@ -31,4 +31,4 @@ feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAG
 
 add_subdirectory(doc)
 add_subdirectory(src)
-add_subdirectory(icons)
+add_subdirectory(data)
