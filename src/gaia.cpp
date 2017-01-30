@@ -72,7 +72,22 @@ void gaia::renderMarkdown() {
     QString html ( text );
 
     QTextDocument *mTextDocument = new QTextDocument ( 0 );
-    mTextDocument->setDefaultStyleSheet ( QString::fromUtf8 ( "h1{color: red;}" ) );
+    
+    QFile file("/home/manolo/share/gaia/cssthemes/solarized-dark.css");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+	qDebug() << "error";
+    }
+    
+    QByteArray total;
+    QByteArray line;
+    while (!file.atEnd()) {
+	line = file.read(1024);
+	total.append(line);
+    }
+    
+    qDebug() << total;
+    
+    mTextDocument->setDefaultStyleSheet ( total );
     QTextCursor *_cursor = new QTextCursor ( mTextDocument );
     m_textOutput->setDocument ( mTextDocument );
 
