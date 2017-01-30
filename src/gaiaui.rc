@@ -9,19 +9,8 @@
   <Menu name="file">
     <Menu name="file_export">
     <text>&amp;Export</text>
-    <Action name="file_export_xml"/>
-    <Action name="file_export_zip"/>
     <Action name="file_export_html"/>
-    <Action name="file_export_csv"/>
-    <Separator/>
-    <Action name="file_export_alexandria"/>
-    <Action name="file_export_bibtex"/>
-    <Action name="file_export_bibtexml"/>
-    <Action name="file_export_onix"/>
-    <Separator/>
-    <Action name="file_export_gcstar"/>
-    <Separator/>
-    <Action name="file_export_xslt"/>
+    <Action name="file_export_pdf"/>
    </Menu>
   </Menu>
   <Menu name="move">

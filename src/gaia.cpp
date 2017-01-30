@@ -38,6 +38,15 @@ gaia::gaia() : KXmlGuiWindow() {
     m_switchAction->setText ( i18n ( "Switch Colors" ) );
     m_switchAction->setIcon ( QIcon::fromTheme ( QStringLiteral ( "fill-color" ) ) );
     connect ( m_switchAction, SIGNAL ( triggered ( bool ) ), m_gaiaView, SLOT ( slotSwitchColors() ) );
+    
+    m_exportHtmlAction = actionCollection()->addAction ( QStringLiteral ( "file_export_html" ), this, SLOT ( slotSwitchColors() ) );
+    m_exportHtmlAction->setText ( i18n ( "HTML" ) );
+    
+    m_exportPdfAction = actionCollection()->addAction ( QStringLiteral ( "file_export_pdf" ), this, SLOT ( slotSwitchColors() ) );
+    m_exportPdfAction->setText ( i18n ( "PDF" ) );
+    
+    actionCollection()->setDefaultShortcut(m_exportHtmlAction, Qt::CTRL + Qt::Key_H);
+    actionCollection()->setDefaultShortcut(m_exportPdfAction, Qt::CTRL + Qt::Key_P);
 
     KStandardAction::openNew ( this, SLOT ( fileNew() ), actionCollection() );
     KStandardAction::open ( this, SLOT ( fileOpen() ), actionCollection() );

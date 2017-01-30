@@ -77,6 +77,8 @@ class gaia : public KXmlGuiWindow
     QTextEdit *m_textOutput;
     
     QAction *m_switchAction;
+    QAction *m_exportHtmlAction;
+    QAction *m_exportPdfAction;
     
     gaiaView *m_gaiaView;
 };
