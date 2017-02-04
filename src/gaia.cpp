@@ -87,7 +87,7 @@ void gaia::fileNew() {
 
 void gaia::fileOpen() {
     QString filter = "Markdown files (*.md)";
-    QUrl fileNameFromDialog = QFileDialog::getOpenFileUrl ( this, i18n ( "Open File" ), QUrl ( "/home" ), filter );
+    QUrl fileNameFromDialog = QFileDialog::getOpenFileUrl ( this, i18n ( "Open File" ), QUrl (), filter );
 
     if ( !fileNameFromDialog.isEmpty() ) {
         KIO::Job* job = KIO::storedGet ( fileNameFromDialog );
