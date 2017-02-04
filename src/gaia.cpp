@@ -57,7 +57,7 @@ gaia::~gaia() {
 }
 
 void gaia::renderMarkdown() {
-    m_textOutput = m_gaiaView->findChild<QTextEdit*> ( "textEdit_output" );
+    m_textOutput = m_gaiaView->findChild<QWebView*> ( "textEdit_output" );
 
     QString textInput = m_textInput->toPlainText();
     QByteArray ba = textInput.toLatin1();
@@ -71,27 +71,11 @@ void gaia::renderMarkdown() {
 
     QString html ( text );
 
-    QTextDocument *mTextDocument = new QTextDocument ( 0 );
-    
-    QFile file("/home/manolo/share/gaia/cssthemes/solarized-dark.css");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-	qDebug() << "error";
-    }
-    
-    QByteArray total;
-    QByteArray line;
-    while (!file.atEnd()) {
-	line = file.read(1024);
-	total.append(line);
-    }
-    
-    qDebug() << total;
-    
-    mTextDocument->setDefaultStyleSheet ( total );
-    QTextCursor *_cursor = new QTextCursor ( mTextDocument );
-    m_textOutput->setDocument ( mTextDocument );
+    QWebSettings* settings = m_textOutput->settings();
+    QUrl myCssFileURL = QUrl::fromLocalFile ( "/home/manolo/share/gaia/cssthemes/solarized-dark.css" );
+    settings->setUserStyleSheetUrl ( myCssFileURL );
 
-    _cursor->insertHtml ( html );
+    m_textOutput->setHtml ( html, QUrl() );
 
     mkd_cleanup ( m );
 }

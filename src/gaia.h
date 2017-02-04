@@ -74,7 +74,7 @@ class gaia : public KXmlGuiWindow
     QString fileName;
     
     QTextEdit *m_textInput;
-    QTextEdit *m_textOutput;
+    QWebView *m_textOutput;
     
     QAction *m_exportHtmlAction;
     QAction *m_exportPdfAction;

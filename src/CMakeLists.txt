@@ -11,6 +11,7 @@ add_executable(gaia ${gaia_SRCS})
 
 target_link_libraries(gaia
     Qt5::Widgets
+    Qt5::WebKitWidgets
     KF5::CoreAddons
     KF5::I18n
     KF5::XmlGui
