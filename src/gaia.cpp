@@ -131,9 +131,16 @@ void gaia::settingsConfigure() {
 
     QWidget *cssSettingsDialog = new QWidget;
     settingsCSS.setupUi ( cssSettingsDialog );
-    settingsCSS.kcfg_css_theme->addItem ( "Github" );
-    settingsCSS.kcfg_css_theme->addItem ( "Bootstrap" );
-    settingsCSS.kcfg_css_theme->addItem ( "Solarized Dark" );
+    
+    QStringList dirs = QStandardPaths::locateAll(QStandardPaths::AppDataLocation, QString("cssthemes"), QStandardPaths::LocateDirectory);
+    Q_FOREACH (const QString &dir, dirs) {
+	const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.css"));
+	Q_FOREACH (const QString &file, fileNames) {
+	    qCDebug ( GAIA ) << dir + '/' + file;
+	    settingsCSS.kcfg_css_theme->addItem ( file );
+	}
+    }
+    
     dialog->addPage ( cssSettingsDialog, i18n ( "CSS" ), QStringLiteral ( "package_setting" ) );
 
     QWidget *editorSettingsDialog = new QWidget;

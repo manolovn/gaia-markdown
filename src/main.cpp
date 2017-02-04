@@ -42,7 +42,7 @@ int main(int argc, char **argv)
                           KAboutLicense::GPL,
                           i18n("(c) %{CURRENT_YEAR}, %{AUTHOR} <%{EMAIL}>"));
 
-    aboutData.addAuthor(i18n("%{AUTHOR}"),i18n("Manuel Vera"), QStringLiteral("%{EMAIL}"));
+    aboutData.addAuthor(i18n("%{AUTHOR}"),i18n("Developer"), QStringLiteral("%{EMAIL}"));
     application.setWindowIcon(QIcon::fromTheme("gaia"));
     QCommandLineParser parser;
     parser.addHelpOption();
