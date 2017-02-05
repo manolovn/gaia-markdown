@@ -1,4 +1,4 @@
-# How to build
+# Gaia - KDE markdown editor
 
 ## How to build
 
