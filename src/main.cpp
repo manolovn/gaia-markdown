@@ -1,5 +1,5 @@
 /*
-Copyright (C) %{CURRENT_YEAR} by Manuel Vera <manolo.vn@gmail.com>
+Copyright (C) 2017 by Manuel Vera <manolo.vn@gmail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -40,7 +40,7 @@ int main(int argc, char **argv)
                           QStringLiteral("%{VERSION}"),
                           i18n("Markdown editor"),
                           KAboutLicense::GPL,
-                          i18n("(c) %{CURRENT_YEAR}, Manuel Vera <manolo.vn@gmail.com>"));
+                          i18n("(c) 2017, Manuel Vera <manolo.vn@gmail.com>"));
 
     aboutData.addAuthor(i18n("Manuel Vera"),i18n("Developer"), QStringLiteral("manolo.vn@gmail.com"));
     application.setWindowIcon(QIcon::fromTheme("gaia"));
