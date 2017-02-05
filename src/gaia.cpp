@@ -35,6 +35,7 @@ gaia::gaia() : KXmlGuiWindow() {
     setCentralWidget ( m_gaiaView );
 
     m_textInput = m_gaiaView->findChild<QTextEdit*> ( "textEdit_input" );
+    m_textInput->setAcceptRichText(false);
     connect ( m_textInput, SIGNAL ( textChanged() ), this, SLOT ( renderMarkdown() ) );
 
     m_exportHtmlAction = actionCollection()->addAction ( QStringLiteral ( "file_export_html" ), this, SLOT ( slotSwitchColors() ) );
