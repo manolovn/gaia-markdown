@@ -61,6 +61,9 @@ private slots:
     void saveFileAs();
     void saveFileAs ( const QString &outputFileName );
     void downloadFinished ( KJob* job );
+    void cut();
+    void copy();
+    void paste();
     void undo();
     void redo();
 

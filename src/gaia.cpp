@@ -52,6 +52,9 @@ gaia::gaia() : KXmlGuiWindow() {
     KStandardAction::preferences ( this, SLOT ( settingsConfigure() ), actionCollection() );
     KStandardAction::undo ( this, SLOT ( undo() ), actionCollection() );
     KStandardAction::redo ( this, SLOT ( redo() ), actionCollection() );
+    KStandardAction::cut ( this, SLOT ( cut() ), actionCollection() );
+    KStandardAction::copy ( this, SLOT ( copy() ), actionCollection() );
+    KStandardAction::paste ( this, SLOT ( paste() ), actionCollection() );
     KStandardAction::quit ( qApp, SLOT ( closeAllWindows() ), actionCollection() );
 
     setupGUI();
@@ -90,6 +93,18 @@ void gaia::undo() {
 
 void gaia::redo() {
     m_textInput->redo();
+}
+
+void gaia::cut() {
+    m_textInput->cut();
+}
+
+void gaia::copy() {
+    m_textInput->copy();
+}
+
+void gaia::paste() {
+    m_textInput->paste();
 }
 
 void gaia::fileNew() {
