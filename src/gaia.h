@@ -61,6 +61,8 @@ private slots:
     void saveFileAs();
     void saveFileAs ( const QString &outputFileName );
     void downloadFinished ( KJob* job );
+    void undo();
+    void redo();
 
     void renderMarkdown();
 

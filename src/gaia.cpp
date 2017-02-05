@@ -50,6 +50,8 @@ gaia::gaia() : KXmlGuiWindow() {
     KStandardAction::save ( this, SLOT ( saveFile() ), actionCollection() );
     KStandardAction::saveAs ( this, SLOT ( saveFileAs() ), actionCollection() );
     KStandardAction::preferences ( this, SLOT ( settingsConfigure() ), actionCollection() );
+    KStandardAction::undo ( this, SLOT ( undo() ), actionCollection() );
+    KStandardAction::redo ( this, SLOT ( redo() ), actionCollection() );
     KStandardAction::quit ( qApp, SLOT ( closeAllWindows() ), actionCollection() );
 
     setupGUI();
@@ -80,6 +82,14 @@ void gaia::renderMarkdown() {
     m_textOutput->setHtml ( html, QUrl() );
 
     mkd_cleanup ( m );
+}
+
+void gaia::undo() {
+    m_textInput->undo();
+}
+
+void gaia::redo() {
+    m_textInput->redo();
 }
 
 void gaia::fileNew() {
