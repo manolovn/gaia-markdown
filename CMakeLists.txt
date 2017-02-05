@@ -17,6 +17,7 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Gui 
     Widgets
     WebKitWidgets
+    PrintSupport
 )
 
 find_package(KF5 REQUIRED COMPONENTS

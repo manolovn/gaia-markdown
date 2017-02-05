@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QFileDialog>
 #include <QSaveFile>
+#include <QPrintDialog>
+#include <QPrinter>
 
 #include <KActionCollection>
 #include <KMessageBox>
@@ -55,6 +57,7 @@ gaia::gaia() : KXmlGuiWindow() {
     KStandardAction::cut ( this, SLOT ( cut() ), actionCollection() );
     KStandardAction::copy ( this, SLOT ( copy() ), actionCollection() );
     KStandardAction::paste ( this, SLOT ( paste() ), actionCollection() );
+    KStandardAction::print ( this, SLOT ( print() ), actionCollection() );
     KStandardAction::quit ( qApp, SLOT ( closeAllWindows() ), actionCollection() );
 
     setupGUI();
@@ -85,6 +88,14 @@ void gaia::renderMarkdown() {
     m_textOutput->setHtml ( html, QUrl() );
 
     mkd_cleanup ( m );
+}
+
+void gaia::print() {
+    QPrinter printer(QPrinter::HighResolution);
+    QPrintDialog printDialog(this);
+    if (printDialog.exec() == QDialog::Accepted) {
+	m_textInput->print(&printer);
+    }
 }
 
 void gaia::undo() {

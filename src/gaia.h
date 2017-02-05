@@ -66,6 +66,7 @@ private slots:
     void paste();
     void undo();
     void redo();
+    void print();
 
     void renderMarkdown();
 
