@@ -1,5 +1,5 @@
 /*
-Copyright (C) %{CURRENT_YEAR} by %{AUTHOR} <%{EMAIL}>
+Copyright (C) %{CURRENT_YEAR} by Manuel Vera <manolo.vn@gmail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gaia.h"
 
 #include <QFileDialog>
+#include <QSaveFile>
 
 #include <KActionCollection>
 #include <KMessageBox>
@@ -47,6 +48,7 @@ gaia::gaia() : KXmlGuiWindow() {
     KStandardAction::open ( this, SLOT ( fileOpen() ), actionCollection() );
     KStandardAction::openRecent ( this, SLOT ( fileOpenRecent() ), actionCollection() );
     KStandardAction::save ( this, SLOT ( saveFile() ), actionCollection() );
+    KStandardAction::saveAs ( this, SLOT ( saveFileAs() ), actionCollection() );
     KStandardAction::preferences ( this, SLOT ( settingsConfigure() ), actionCollection() );
     KStandardAction::quit ( qApp, SLOT ( closeAllWindows() ), actionCollection() );
 
@@ -115,7 +117,29 @@ void gaia::fileOpenRecent() {
 }
 
 void gaia::saveFile() {
+    if ( !fileName.isEmpty() ) {
+        saveFileAs ( fileName );
+    } else {
+        saveFileAs();
+    }
+}
 
+void gaia::saveFileAs() {
+    saveFileAs ( QFileDialog::getSaveFileName ( this, i18n ( "Save File As" ) ) );
+}
+
+void gaia::saveFileAs ( const QString &outputFileName ) {
+    if ( !outputFileName.isNull() ) {
+        QSaveFile file ( outputFileName );
+        file.open ( QIODevice::WriteOnly );
+
+        QByteArray outputByteArray;
+        outputByteArray.append ( m_textInput->toPlainText().toUtf8() );
+        file.write ( outputByteArray );
+        file.commit();
+
+        fileName = outputFileName;
+    }
 }
 
 void gaia::settingsConfigure() {
@@ -131,16 +155,16 @@ void gaia::settingsConfigure() {
 
     QWidget *cssSettingsDialog = new QWidget;
     settingsCSS.setupUi ( cssSettingsDialog );
-    
-    QStringList dirs = QStandardPaths::locateAll(QStandardPaths::AppDataLocation, QString("cssthemes"), QStandardPaths::LocateDirectory);
-    Q_FOREACH (const QString &dir, dirs) {
-	const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.css"));
-	Q_FOREACH (const QString &file, fileNames) {
-	    qCDebug ( GAIA ) << dir + '/' + file;
-	    settingsCSS.kcfg_css_theme->addItem ( file );
-	}
+
+    QStringList dirs = QStandardPaths::locateAll ( QStandardPaths::AppDataLocation, QString ( "cssthemes" ), QStandardPaths::LocateDirectory );
+    Q_FOREACH ( const QString &dir, dirs ) {
+        const QStringList fileNames = QDir ( dir ).entryList ( QStringList() << QStringLiteral ( "*.css" ) );
+        Q_FOREACH ( const QString &file, fileNames ) {
+            qCDebug ( GAIA ) << dir + '/' + file;
+            settingsCSS.kcfg_css_theme->addItem ( file );
+        }
     }
-    
+
     dialog->addPage ( cssSettingsDialog, i18n ( "CSS" ), QStringLiteral ( "package_setting" ) );
 
     QWidget *editorSettingsDialog = new QWidget;

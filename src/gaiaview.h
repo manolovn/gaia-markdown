@@ -1,5 +1,5 @@
 /*
-Copyright (C) %{CURRENT_YEAR} by %{AUTHOR} <%{EMAIL}>
+Copyright (C) %{CURRENT_YEAR} by Manuel Vera <manolo.vn@gmail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
@@ -31,7 +31,7 @@ Q_DECLARE_LOGGING_CATEGORY(GAIA)
  * menus, toolbars and status bars.
  *
  * @short Main window class
- * @author %{AUTHOR} <%{EMAIL}>
+ * @author Manuel Vera Manuel Vera
  * @version %{VERSION}
  */
 class gaiaView : public QWidget

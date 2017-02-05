@@ -1,12 +1,12 @@
 /*
-Copyright (C) %{CURRENT_YEAR} by %{AUTHOR} <%{EMAIL}>
+Copyright (C) %{CURRENT_YEAR} by Manuel Vera <manolo.vn@gmail.com>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of
 the License or (at your option) version 3 or any later version
 accepted by the membership of KDE e.V. (or its successor approved
-by the membership of KDE e.V.), which shall act as a proxy 
+by the membership of KDE e.V.), which shall act as a proxy
 defined in Section 14 of version 3 of the license.
 
 This program is distributed in the hope that it will be useful,
@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gaiaSettings.h"
 #include "gaiaview.h"
 
-Q_DECLARE_LOGGING_CATEGORY(GAIA)
+Q_DECLARE_LOGGING_CATEGORY ( GAIA )
 
 class KJob;
 
@@ -41,44 +41,46 @@ class KJob;
  * menus, toolbars and status bars.
  *
  * @short Main window class
- * @author %{AUTHOR} <%{EMAIL}>
+ * @author Manuel Vera <manolo.vn@gmail.com>
  * @version %{VERSION}
  */
 class gaia : public KXmlGuiWindow
 {
     Q_OBJECT
-    
-  public:
+
+public:
     gaia();
-    
+
     virtual ~gaia();
 
-  private slots:
+private slots:
     void fileNew();
     void fileOpen();
     void fileOpenRecent();
     void saveFile();
-    void downloadFinished(KJob* job);
-    
+    void saveFileAs();
+    void saveFileAs ( const QString &outputFileName );
+    void downloadFinished ( KJob* job );
+
     void renderMarkdown();
 
     void settingsConfigure();
 
-  private:
+private:
     Ui::settingsBase settingsBase;
     Ui::settingsCSS settingsCSS;
     Ui::settingsEditor settingsEditor;
-    
+
     Ui::gaiaViewBase gaiaViewBase;
-    
+
     QString fileName;
-    
+
     QTextEdit *m_textInput;
     QWebView *m_textOutput;
-    
+
     QAction *m_exportHtmlAction;
     QAction *m_exportPdfAction;
-    
+
     gaiaView *m_gaiaView;
 };
 
