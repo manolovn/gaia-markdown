@@ -34,17 +34,15 @@ gaia::gaia() : KXmlGuiWindow() {
     m_gaiaView = new gaiaView ( this );
     setCentralWidget ( m_gaiaView );
 
-    m_textInput = m_gaiaView->findChild<QTextEdit*> ( "textEdit_input" );
-    m_textInput->setAcceptRichText(false);
+    m_textInput = m_gaiaView->findChild<QPlainTextEdit*> ( "textEdit_input" );
     connect ( m_textInput, SIGNAL ( textChanged() ), this, SLOT ( renderMarkdown() ) );
 
-    m_exportHtmlAction = actionCollection()->addAction ( QStringLiteral ( "file_export_html" ), this, SLOT ( slotSwitchColors() ) );
+    m_exportHtmlAction = actionCollection()->addAction ( QStringLiteral ( "file_export_html" ), this, SLOT ( exportAsHtml() ) );
     m_exportHtmlAction->setText ( i18n ( "HTML" ) );
-
-    m_exportPdfAction = actionCollection()->addAction ( QStringLiteral ( "file_export_pdf" ), this, SLOT ( slotSwitchColors() ) );
-    m_exportPdfAction->setText ( i18n ( "PDF" ) );
-
     actionCollection()->setDefaultShortcut ( m_exportHtmlAction, Qt::CTRL + Qt::Key_H );
+
+    m_exportPdfAction = actionCollection()->addAction ( QStringLiteral ( "file_export_pdf" ), this, SLOT ( exportAsPdf() ) );
+    m_exportPdfAction->setText ( i18n ( "PDF" ) );
     actionCollection()->setDefaultShortcut ( m_exportPdfAction, Qt::CTRL + Qt::Key_P );
 
     KStandardAction::openNew ( this, SLOT ( fileNew() ), actionCollection() );
@@ -97,6 +95,14 @@ void gaia::print() {
     if (printDialog.exec() == QDialog::Accepted) {
 	m_textInput->print(&printer);
     }
+}
+
+void gaia::exportAsHtml() {
+
+}
+
+void gaia::exportAsPdf() {
+
 }
 
 void gaia::undo() {

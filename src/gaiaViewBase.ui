@@ -22,7 +22,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QTextEdit" name="textEdit_input"/>
+     <widget class="CodeEditor" name="textEdit_input"/>
      <widget class="QWebView" name="textEdit_output"/>
     </widget>
    </item>

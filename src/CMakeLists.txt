@@ -2,6 +2,7 @@ set(gaia_SRCS
     main.cpp
     gaia.cpp
     gaiaview.cpp
+    codeeditor.cpp
 )
 
 kconfig_add_kcfg_files(gaia_SRCS gaiaSettings.kcfgc)

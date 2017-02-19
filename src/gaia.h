@@ -57,16 +57,21 @@ private slots:
     void fileNew();
     void fileOpen();
     void fileOpenRecent();
+    void downloadFinished ( KJob* job );
+    
     void saveFile();
     void saveFileAs();
     void saveFileAs ( const QString &outputFileName );
-    void downloadFinished ( KJob* job );
+    
     void cut();
     void copy();
     void paste();
     void undo();
     void redo();
     void print();
+    
+    void exportAsHtml();
+    void exportAsPdf();
 
     void renderMarkdown();
 
@@ -81,7 +86,7 @@ private:
 
     QString fileName;
 
-    QTextEdit *m_textInput;
+    QPlainTextEdit *m_textInput;
     QWebView *m_textOutput;
 
     QAction *m_exportHtmlAction;
