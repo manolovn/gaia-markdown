@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_settingsEditor.h"
 #include "gaiaSettings.h"
 #include "gaiaview.h"
+#include "theme/cssthemeprovider.h"
 
 Q_DECLARE_LOGGING_CATEGORY ( GAIA )
 
@@ -93,6 +94,8 @@ private:
     QAction *m_exportPdfAction;
 
     gaiaView *m_gaiaView;
+    
+    CssThemeProvider *themeProvider;
 };
 
 #endif // GAIA_H

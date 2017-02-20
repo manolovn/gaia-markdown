@@ -41,6 +41,14 @@ void gaiaView::slotSettingsChanged()
 
     qCDebug(GAIA) << "current css theme " << gaiaSettings::css_theme();
     
+    m_textOutput = this->findChild<QWebView*> ( "textEdit_output" );
+    themeProvider = new CssThemeProvider();
+    QWebSettings* settings = m_textOutput->settings();
+    //QUrl myCssFileURL = QUrl::fromLocalFile ( "/home/manolo/share/gaia/cssthemes/solarized-dark.css" );
+    qCDebug ( GAIA ) << "-->> " << themeProvider->getCurrentTheme()->location();
+    QUrl myCssFileURL = QUrl::fromLocalFile ( themeProvider->getCurrentTheme()->location() );
+    settings->setUserStyleSheetUrl ( myCssFileURL );
+    
     // i18n : internationalization
     //m_ui.templateLabel->setText(i18n("This project is %1 days old", gaiaSettings::val_time()));
     emit signalChangeStatusbar(i18n("Settings changed"));

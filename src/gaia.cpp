@@ -80,10 +80,6 @@ void gaia::renderMarkdown() {
 
     QString html ( text );
 
-    QWebSettings* settings = m_textOutput->settings();
-    QUrl myCssFileURL = QUrl::fromLocalFile ( "/home/manolo/share/gaia/cssthemes/solarized-dark.css" );
-    settings->setUserStyleSheetUrl ( myCssFileURL );
-
     m_textOutput->setHtml ( html, QUrl() );
 
     mkd_cleanup ( m );
@@ -186,6 +182,8 @@ void gaia::saveFileAs ( const QString &outputFileName ) {
 }
 
 void gaia::settingsConfigure() {
+    themeProvider = new CssThemeProvider();
+  
     qCDebug ( GAIA ) << "gaia::settingsConfigure()";
     if ( KConfigDialog::showDialog ( QStringLiteral ( "settings" ) ) ) {
         return;
@@ -199,13 +197,8 @@ void gaia::settingsConfigure() {
     QWidget *cssSettingsDialog = new QWidget;
     settingsCSS.setupUi ( cssSettingsDialog );
 
-    QStringList dirs = QStandardPaths::locateAll ( QStandardPaths::AppDataLocation, QString ( "cssthemes" ), QStandardPaths::LocateDirectory );
-    Q_FOREACH ( const QString &dir, dirs ) {
-        const QStringList fileNames = QDir ( dir ).entryList ( QStringList() << QStringLiteral ( "*.css" ) );
-        Q_FOREACH ( const QString &file, fileNames ) {
-            qCDebug ( GAIA ) << dir + '/' + file;
-            settingsCSS.kcfg_css_theme->addItem ( file );
-        }
+    Q_FOREACH( const CssTheme* theme, themeProvider->themes()){
+	settingsCSS.kcfg_css_theme->addItem ( theme->name(), theme->location() );
     }
 
     dialog->addPage ( cssSettingsDialog, i18n ( "CSS" ), QStringLiteral ( "package_setting" ) );

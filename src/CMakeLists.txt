@@ -3,6 +3,8 @@ set(gaia_SRCS
     gaia.cpp
     gaiaview.cpp
     codeeditor.cpp
+    theme/cssthemeprovider.cpp
+    theme/csstheme.cpp
 )
 
 kconfig_add_kcfg_files(gaia_SRCS gaiaSettings.kcfgc)
@@ -25,3 +27,5 @@ target_link_libraries(gaia
 install(TARGETS gaia ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(PROGRAMS gaia.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES gaiaui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/gaia)
+
+add_subdirectory(theme)
