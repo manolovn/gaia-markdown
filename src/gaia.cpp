@@ -182,7 +182,7 @@ void gaia::saveFileAs ( const QString &outputFileName ) {
 }
 
 void gaia::settingsConfigure() {
-    themeProvider = new CssThemeProvider();
+    themeProvider = new CssThemeProvider;
   
     qCDebug ( GAIA ) << "gaia::settingsConfigure()";
     if ( KConfigDialog::showDialog ( QStringLiteral ( "settings" ) ) ) {
