@@ -1,4 +1,7 @@
+![icon](.github/icon.png)
 # Gaia - KDE markdown editor
+
+![icon](.github/screenshot.png)
 
 ## How to build
 
