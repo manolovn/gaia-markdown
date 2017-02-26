@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSaveFile>
 #include <QPrintDialog>
 #include <QPrinter>
+#include <QStatusBar>
 
 #include <KActionCollection>
 #include <KMessageBox>
@@ -69,6 +70,10 @@ void gaia::renderMarkdown() {
     m_textOutput = m_gaiaView->findChild<QWebView*> ( "textEdit_output" );
 
     QString textInput = m_textInput->toPlainText();
+
+    int wordCount = textInput.split ( QRegExp ( "(\\s|\\n|\\r)+" ), QString::SkipEmptyParts ).count();
+    statusBar()->showMessage ( QString ( "word count: %1" ).arg ( wordCount ) );
+
     QByteArray ba = textInput.toLatin1();
     const char *c = ba.data();
 
@@ -86,10 +91,10 @@ void gaia::renderMarkdown() {
 }
 
 void gaia::print() {
-    QPrinter printer(QPrinter::HighResolution);
-    QPrintDialog printDialog(this);
-    if (printDialog.exec() == QDialog::Accepted) {
-	m_textInput->print(&printer);
+    QPrinter printer ( QPrinter::HighResolution );
+    QPrintDialog printDialog ( this );
+    if ( printDialog.exec() == QDialog::Accepted ) {
+        m_textInput->print ( &printer );
     }
 }
 
@@ -183,7 +188,7 @@ void gaia::saveFileAs ( const QString &outputFileName ) {
 
 void gaia::settingsConfigure() {
     themeProvider = new CssThemeProvider;
-  
+
     qCDebug ( GAIA ) << "gaia::settingsConfigure()";
     if ( KConfigDialog::showDialog ( QStringLiteral ( "settings" ) ) ) {
         return;
@@ -197,8 +202,8 @@ void gaia::settingsConfigure() {
     QWidget *cssSettingsDialog = new QWidget;
     settingsCSS.setupUi ( cssSettingsDialog );
 
-    Q_FOREACH( const CssTheme* theme, themeProvider->themes()){
-	settingsCSS.kcfg_css_theme->addItem ( theme->name(), theme->location() );
+    Q_FOREACH ( const CssTheme* theme, themeProvider->themes() ) {
+        settingsCSS.kcfg_css_theme->addItem ( theme->name(), theme->location() );
     }
 
     dialog->addPage ( cssSettingsDialog, i18n ( "CSS" ), QStringLiteral ( "package_setting" ) );

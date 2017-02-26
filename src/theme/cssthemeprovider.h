@@ -39,6 +39,7 @@ public:
     CssTheme* getCurrentTheme();
     QList<CssTheme*> themes();
     
+private:
 };
 
 #endif // CSSTHEMEPROVIDER_H
